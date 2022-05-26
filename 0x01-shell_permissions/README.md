@@ -1,1 +1,1 @@
-Scrpipt to print username
+Prints current user groups
