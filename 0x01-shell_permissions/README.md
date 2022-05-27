@@ -1,1 +1,1 @@
-James Bond
+John Doe style
