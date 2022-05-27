@@ -1,1 +1,1 @@
-Permit everybody
+James Bond
