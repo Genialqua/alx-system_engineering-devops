@@ -1,1 +1,1 @@
-Mirroring files
+Directories permissions
