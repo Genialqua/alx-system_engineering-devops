@@ -1,1 +1,1 @@
-Prints current user groups
+To change owner
