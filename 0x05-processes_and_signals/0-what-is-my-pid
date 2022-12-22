@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # To display own PID
 
-ps | grep PID
+pidof PID
