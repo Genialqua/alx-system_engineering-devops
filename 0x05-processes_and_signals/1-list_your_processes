@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # To display all running processes 
 
-ps -efl | less
+ps -aux
