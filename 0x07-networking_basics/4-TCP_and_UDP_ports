@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# To listen to a port and show PID
+netstat -lp
+
