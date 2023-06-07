@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+sudo nano /etc/hosts ifconfig lo0 127.0.0.2
+sudo nano /etc/hosts ifconfig facebook.com 8.8.8.8
