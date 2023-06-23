@@ -1,7 +1,7 @@
 # This manifest installs a package
 
 package { 'flask':
-  ensure  => 'present'
+  ensure  => '2.1.0',
   require => Exec['pip3']
 }
 
