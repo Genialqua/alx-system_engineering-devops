@@ -1,7 +1,6 @@
 # This is to list all running processes
 
 exec {'ps':
-  path     => '/usr/bin',
   provider => 'shell',
   command  => 'ps -ef | grep killmenow'
 }
