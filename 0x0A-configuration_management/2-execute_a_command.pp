@@ -9,8 +9,7 @@ exec {'ps':
 
 exec {'kill':
   path     => '/usr/bin',
-  provider => 'shell', 
+  provider => 'shell',
   require  => Exec['ps'],
   command  => 'pkill killmenow'
 }
-
