@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+/etc/ssh/ssh_config
