@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# This script tranfers file to a remote server
+scp /Users/admin/alx-system_engineering-devops/0x0C-web_server/some_page.html ubuntu@3.90.70.125:~/
