@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# This script prints strings and numbers
+
+i=1
+while [ $i -le 20 ];
+do
+
+        if [ $i -eq 4 ];
+        then
+                echo $i;
+                echo bad luck from China;
+        elif [ $i -eq 9 ];
+        then
+                echo $i;
+                echo bad luck from Japan;
+        elif [ $i -eq 17 ];
+        then
+                echo $i;
+                echo bad luck from Italy;
+	else
+                echo $i;
+                fi
+        i=$((i+1))
+done
+
