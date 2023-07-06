@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 # This script selects a particular output
+# shellcheck disable=SC2009
 
-ps -auxf | pgrep 'bash'
+ps -auxf | grep 'bash'
