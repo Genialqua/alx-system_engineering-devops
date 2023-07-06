@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This script selects a particular output
+
+ps -auxf | pgrep 'bash'
