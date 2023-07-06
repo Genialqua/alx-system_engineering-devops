@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# This script displays time
+
+i=1
+while true [ $i -ge 1 ];
+do
+        echo To infinity and beyond
+        sleep 2
+        i=$(( i + 1 ));
+done
