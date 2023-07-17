@@ -73,14 +73,7 @@
 # don't delete the 'COMMIT' line or these rules won't be processed
 COMMIT
 
-# NAT table rules
 *nat
-:POSTROUTING ACCEPT [0:0]
-
-# Forward traffic from port 8080/TCP to port 80/TCP.
--A PREROUTING -p tcp --dport 8080 -j DNAT --to-destination 3.90.70.125:80
-
-# Don’t masquerade local traffic.
--A POSTROUTING -s 192.168.1.0/24 -j MASQUERADE
-
+:PREROUTING ACCEPT [0:0]
+-A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
 COMMIT
