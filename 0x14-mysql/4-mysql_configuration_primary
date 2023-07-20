@@ -26,8 +26,6 @@
 # For explanations see
 # http://dev.mysql.com/doc/mysql/en/server-system-variables.html
 
-!includedir /etc/mysql/conf.d/
-!includedir /etc/mysql/mysql.conf.d/
 
 [mysqld]
 pid-file        = /var/run/mysqld/mysqld.pid
