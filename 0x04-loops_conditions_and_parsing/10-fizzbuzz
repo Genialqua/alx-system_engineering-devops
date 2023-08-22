@@ -1,11 +1,17 @@
-#!/usr/bin env bash
-
-for number in range(1, 101):
-    if number % 3 == 0 and number % 5 == 0:
-        print("FizzBuzz")
-    elif number % 3 == 0:
-        print("Fizz")
-    elif number % 5 == 0:
-        print("Buzz")
-    else:
-        print(number)
+#!/usr/bin/env bash
+#Program that prints FizzBuzz sequence
+for i in {1..100}
+do
+    if [ $((i % 5)) -eq 0 -a $((i % 3)) -eq 0 ]
+    then
+	echo "FizzBuzz"
+    elif [ $((i % 5)) -eq 0 ]
+    then
+	echo "Buzz"
+    elif [ $((i % 3)) -eq 0 ]
+    then
+	echo "Fizz"
+    else
+	echo "$i"
+    fi
+done
