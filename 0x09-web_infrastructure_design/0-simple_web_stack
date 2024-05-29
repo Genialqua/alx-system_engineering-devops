@@ -1,0 +1,59 @@
+Step-by-Step Explanation
+User Access: A user wants to access the website by typing www.foobar.com into their browser.
+
+DNS Resolution: The browser sends a DNS query to resolve www.foobar.com to an IP address. The DNS server responds with the IP address 8.8.8.8.
+
+HTTP Request: The browser sends an HTTP request to the IP address 8.8.8.8.
+
+Nginx Web Server: The request reaches the Nginx web server running on the single server at 8.8.8.8. Nginx handles the incoming HTTP request and routes it to the application server.
+
+Application Server: The application server processes the request. This includes executing the application code to generate the appropriate response.
+
+Database Interaction: If the application needs to retrieve or store data, it interacts with the MySQL database, which is also running on the same server.
+
+Response Generation: The application server generates the HTTP response (e.g., an HTML page) and sends it back to the Nginx web server.
+
+Response Delivery: Nginx delivers the HTTP response back to the user's browser.
+
+User View: The browser renders the response, and the user sees the website.
+
+Infrastructure Design
+Components
+
+Server: A single physical or virtual server with the IP address 8.8.8.8.
+Web Server: Nginx installed on the server to handle HTTP requests.
+Application Server: Running on the same server to process application logic.
+Application Files: Codebase for the website, stored on the server.
+Database: MySQL database installed on the server for data storage.
+Domain Name: foobar.com with a www CNAME record pointing to 8.8.8.8.
+
+Configuration Details
+Nginx Configuration: Nginx is configured to listen on port 80 (HTTP) and route requests to the application server.
+Application Server: Can be a Node.js, Python (Django/Flask), or PHP server, depending on the application stack.
+MySQL Database: Configured to store and manage application data, accessible by the application server.
+Nginx Configuration Example
+
+server {
+    listen 80;
+    server_name www.foobar.com;
+
+    location / {
+        proxy_pass http://localhost:3000; # Assuming the application server runs on port 3000
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+
+Issues with This Infrastructure
+Single Point of Failure (SPOF):
+
+The entire website is hosted on a single server. If this server fails (hardware failure, network issues, etc.), the website will become completely unavailable.
+Downtime During Maintenance:
+
+Deploying new code or performing maintenance on the web server requires restarting Nginx, which will cause downtime. Users attempting to access the site during this time will experience service interruptions.
+Scalability:
+
+This infrastructure cannot handle a significant increase in traffic. All requests are handled by a single server, so if the traffic exceeds the server's capacity, the performance will degrade, leading to slow response times or complete unavailability.
