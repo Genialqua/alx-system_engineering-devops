@@ -1,0 +1,78 @@
+A secure and monitored three-server web infrastructure that hosts the website www.foobar.com, we'll incorporate firewalls, SSL certificates, and monitoring clients. Below is the step-by-step explanation and design.
+
+Step-by-Step Explanation
+
+User Access: A user types www.foobar.com into their browser.
+
+DNS Resolution: The browser sends a DNS query to resolve www.foobar.com. The DNS server responds with the IP address of the load balancer.
+
+HTTPS Request: The browser sends an HTTPS request to the IP address of the load balancer.
+
+Load Balancer (HAProxy): The load balancer, equipped with an SSL certificate, terminates the SSL/TLS connection and distributes incoming HTTPS requests to one of the web servers (Nginx) based on a configured algorithm.
+
+Web Server (Nginx): The chosen Nginx web server handles the HTTP request and forwards it to the application server.
+
+Application Server: The application server processes the request, which may involve executing application code and interacting with the database.
+
+Database Interaction: The application server interacts with the MySQL database to fetch or store data.
+
+Response Generation: The application server generates the HTTP response and sends it back to the Nginx web server.
+
+Response Delivery: Nginx sends the response back to the load balancer, which forwards it to the user's browser over HTTPS.
+
+User View: The user sees the rendered web page in their browser.
+
+Components and Their Roles
+Load Balancer (HAProxy):
+
+Purpose: Distributes incoming requests across multiple web servers to balance load and increase reliability.
+Distribution Algorithm: Round-robin, which distributes requests evenly across all servers.
+Setup: Active-Active, meaning all web servers are actively serving traffic.
+Firewalls:
+
+Purpose: Protects each server by controlling incoming and outgoing network traffic based on predetermined security rules.
+Benefits: Enhances security by preventing unauthorized access and attacks.
+SSL Certificate:
+
+Purpose: Encrypts data transmitted between the user’s browser and the server, ensuring secure communication.
+Benefits: Protects sensitive data and provides user confidence in the security of the website.
+Monitoring Clients:
+
+Purpose: Collects data on server performance, health, and traffic for analysis and alerts.
+Monitoring Tool: Sumologic or similar service, which aggregates logs and metrics from all servers.
+Benefits: Provides real-time monitoring, alerting for issues, and performance insights.
+MySQL Database:
+
+Purpose: Stores application data.
+Setup: Primary-Replica (Master-Slave) cluster to ensure data redundancy and improve read performance.
+Primary Node: Handles all write operations and propagates changes to replicas.
+Replica Nodes: Handle read operations, providing load distribution and backup.
+Issues and Specifics
+Single Points of Failure (SPOF):
+
+Load Balancer: If the load balancer fails, the entire website becomes unreachable.
+Database Primary Node: If the primary node fails, write operations cannot be performed until a replica is promoted.
+Security Issues:
+
+No Firewall: Servers are vulnerable to unauthorized access and attacks.
+No HTTPS: Data transmitted between the client and server is not encrypted, exposing it to potential interception.
+No Monitoring:
+
+Without Monitoring: It's challenging to detect issues like server downtime, performance bottlenecks, and security breaches in real-time.
+Monitoring
+Purpose: Monitoring is used to track the performance, health, and traffic of the web infrastructure.
+Tool: Sumologic or similar service aggregates logs and metrics from all servers.
+Data Collection: Monitoring clients installed on each server collect data and send it to a central monitoring service.
+Web Server QPS (Queries Per Second): To monitor QPS, configure the monitoring client to track and log the number of HTTP requests processed by the Nginx servers.
+Specific Issues
+SSL Termination at the Load Balancer:
+
+Issue: If SSL is terminated at the load balancer, traffic between the load balancer and web servers is not encrypted, posing a security risk within the network.
+Single MySQL Server for Writes:
+
+Issue: If the primary MySQL server fails, no write operations can be performed until a replica is promoted to primary, leading to potential data consistency issues.
+Servers with All Components:
+
+Issue: Running all components (database, web server, application server) on the same servers can lead to resource contention, making it difficult to scale and isolate issues.
+
+This secure and monitored three-server infrastructure improves scalability, availability, and performance. It includes firewalls for security, SSL certificates for encrypted traffic, and monitoring clients for real-time performance insights. However, there are still potential issues such as single points of failure, security risks with SSL termination, and resource contention on servers with multiple roles. Addressing these issues requires careful planning and potentially more advanced configurations like multi-load balancers, database clustering, and dedicated roles for servers.

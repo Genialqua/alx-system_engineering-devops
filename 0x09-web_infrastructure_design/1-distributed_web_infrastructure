@@ -1,0 +1,62 @@
+A three-server web infrastructure to host the website www.foobar.com.
+
+Step-by-Step Explanation
+
+User Access: A user types www.foobar.com into their browser.
+
+DNS Resolution: The browser sends a DNS query to resolve www.foobar.com. The DNS server responds with the IP address of the load balancer.
+
+HTTP Request: The browser sends an HTTP request to the IP address of the load balancer.
+
+Load Balancer (HAProxy): The load balancer distributes incoming HTTP requests to one of the web servers (Nginx) based on a configured algorithm.
+
+Web Server (Nginx): The chosen Nginx web server handles the HTTP request and forwards it to the application server.
+
+Application Server: The application server processes the request, which may involve executing application code and interacting with the database.
+
+Database Interaction: The application server interacts with the MySQL database to fetch or store data.
+
+Response Generation: The application server generates the HTTP response and sends it back to the Nginx web server.
+
+Response Delivery: The Nginx web server sends the response back to the load balancer, which forwards it to the user's browser.
+
+User View: The user sees the rendered web page in their browser.
+
+Components and Their Roles
+Load Balancer (HAProxy):
+
+Purpose: Distributes incoming requests across multiple web servers to balance load and increase reliability.
+Distribution Algorithm: Round-robin, which distributes requests evenly across all servers.
+Setup: Active-Active, meaning all web servers are actively serving traffic.
+Benefits: Improves scalability and availability.
+Web Servers (Nginx):
+
+Purpose: Handle HTTP requests and forward them to the application server.
+Benefits: Distributes traffic load and increases redundancy.
+Application Server:
+
+Purpose: Processes requests, runs application code, and interacts with the database.
+Benefits: Centralizes application logic and data processing.
+MySQL Database:
+
+Purpose: Stores application data.
+Setup: Primary-Replica (Master-Slave) cluster to ensure data redundancy and improve read performance.
+Primary Node: Handles all write operations and propagates changes to replicas.
+Replica Nodes: Handle read operations, providing load distribution and backup.
+Database Primary-Replica Cluster
+Primary Node: Handles all write and update operations. Changes are replicated to replica nodes.
+Replica Nodes: Handle read-only operations. Provide redundancy and load distribution for read-heavy applications.
+Specifics and Issues
+Single Points of Failure (SPOF):
+
+Load Balancer: If the load balancer fails, the entire website becomes unreachable.
+Database Primary Node: If the primary node fails, write operations cannot be performed until a replica is promoted.
+Security Issues:
+
+No firewall: The system is vulnerable to unauthorized access.
+No HTTPS: Data transmitted between the client and server is not encrypted, exposing it to potential interception.
+No Monitoring:
+
+Without monitoring, it's challenging to detect issues like server downtime, performance bottlenecks, and security breaches in real-time.
+Summary
+This three-server infrastructure enhances scalability, availability, and performance compared to a single-server setup. The load balancer distributes traffic, web servers handle HTTP requests, and the application server processes requests and interacts with the database. The primary-replica database setup ensures data redundancy and improves read performance. However, this setup still has single points of failure and lacks security measures like firewalls and HTTPS, as well as monitoring tools, which are essential for maintaining a robust and secure web infrastructure.
